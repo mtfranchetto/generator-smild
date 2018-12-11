@@ -15,5 +15,6 @@ module.exports = class extends Generator {
 
   initialize() {
     this.composeWith(require.resolve(`../${this.answers.projectType}`));
+    this.composeWith(require.resolve("../test"));
   }
 };

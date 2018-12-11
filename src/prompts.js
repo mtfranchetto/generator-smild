@@ -14,16 +14,10 @@ module.exports = (projectType) => [{
     store: true
 }, {
     name: "frontendFramework",
+    when: () => projectType === ProjectTypes.BUNDLE,
     type: "list",
     message: "Frontend framework of your choice",
     default: "React",
     choices: ["React", "None"],
-    store: true
-}, {
-    type: "list",
-    name: "testRunner",
-    message: "Pick a test runner",
-    choices: ["Mocha", "Jest"],
-    default: "Mocha",
     store: true
 }];
