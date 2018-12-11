@@ -6,8 +6,4 @@ module.exports = class extends Generator {
   async prompting() {
     this.answers = await this.prompt(promptsFor(ProjectTypes.LIB));
   }
-
-  initialize() {
-
-  }
 };

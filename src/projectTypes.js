@@ -1,3 +1,5 @@
 module.exports = {
-    BUNDLE: "bundle", LIB: "lib", SERVER: "server"
+  BUNDLE: "bundle",
+  LIB: "lib",
+  SERVER: "server"
 };
