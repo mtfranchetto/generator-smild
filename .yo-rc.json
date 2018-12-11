@@ -1,9 +1,0 @@
-{
-  "generator-node": {
-    "promptValues": {
-      "authorName": "Mattia Franchetto",
-      "authorEmail": "mt.franchetto@gmail.com",
-      "authorUrl": "https://medium.com/@mtfranchetto"
-    }
-  }
-}
