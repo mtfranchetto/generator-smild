@@ -17,6 +17,12 @@ module.exports = projectType => [
     store: true
   },
   {
+    name: "out",
+    message: "Where to put built files",
+    default: "dist",
+    store: true
+  },
+  {
     name: "frontendFramework",
     when: () => projectType === ProjectTypes.BUNDLE,
     type: "list",
