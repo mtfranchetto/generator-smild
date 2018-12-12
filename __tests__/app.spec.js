@@ -13,9 +13,9 @@ describe("Given the default generator", () => {
 
   it("should configure yalc to handle package linking", () => {
     assert.jsonFileContent("package.json", {
-      "add-local": "yalc add",
-      "remove-local": "yalc remove",
-      "push-local": "yalc push"
+      "link": "yalc add",
+      "rm-link": "yalc remove",
+      "push": "yalc push"
     });
   });
 });

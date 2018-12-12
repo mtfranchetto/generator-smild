@@ -27,8 +27,8 @@ module.exports = projectType => [
     when: () => projectType === ProjectTypes.BUNDLE,
     type: "list",
     message: "Frontend framework for this project",
-    default: "React",
-    choices: ["React", "None"],
+    default: "react",
+    choices: ["react", "none"],
     store: true
   }
 ];

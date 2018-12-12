@@ -5,11 +5,11 @@ const fs = require("fs");
 
 describe("Given a bundle generator", () => {
 
-  describe("when React as a framework is selected", () => {
+  describe("when react as a framework is selected", () => {
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/bundle"))
-        .withPrompts({ frontendFramework: "React" });
+        .withPrompts({ frontendFramework: "react" });
     });
 
     it("should add the babel configuration", () => {
@@ -21,7 +21,7 @@ describe("Given a bundle generator", () => {
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/bundle"))
-        .withPrompts({ frontendFramework: "None" });
+        .withPrompts({ frontendFramework: "none" });
     });
 
 
