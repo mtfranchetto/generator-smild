@@ -24,9 +24,14 @@ module.exports = class extends Generator {
     let dependencies = commonDeps;
 
     if (this.answers.testRunner === "mocha") {
-      dependencies = commonDeps.concat([
+      dependencies = dependencies.concat([
         "ts-node@^7.0.1",
         "mocha@^5.2.0"
+      ]);
+    } else {
+      dependencies = dependencies.concat([
+        "jest@^23.6.0",
+        "ts-jest@^23.10.5"
       ]);
     }
 

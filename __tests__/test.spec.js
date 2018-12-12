@@ -28,5 +28,18 @@ describe("Given a test generator", () => {
         .run(path.join(__dirname, "../generators/test"))
         .withPrompts({ testRunner: "jest" });
     });
+
+    it("should copy the jest config", () => {
+      assert.fileContent("jest.config.js", fs.readFileSync(path.join(__dirname, "../generators/test/template/jest.config.js")));
+    });
+
+    it("should configure the right scripts", () => {
+      assert.jsonFileContent("package.json", {
+        scripts: {
+          test: "jest",
+          "test-watch": "jest --watch"
+        }
+      });
+    });
   });
 });
