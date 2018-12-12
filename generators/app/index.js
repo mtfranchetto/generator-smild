@@ -16,7 +16,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall(["yalc@1.0.0.pre.24"], { "save-dev": true });
+    this.npmInstall(["yalc@1.0.0-pre.24"], { "save-dev": true });
   }
 
   config() {
