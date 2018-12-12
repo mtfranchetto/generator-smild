@@ -20,7 +20,9 @@ describe("Given a bundle generator", () => {
     });
 
     it("should install react hot loader", () => {
-      assert.fileContent("package.json", /"react-hot-loader": ".+"/);
+      sinon.assert.calledWith(installSpy, [
+        sinon.match(/react-hot-loader@.+/)
+      ], { "save-dev": true });
     });
 
     it("should add the babel configuration", () => {
@@ -36,7 +38,11 @@ describe("Given a bundle generator", () => {
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/bundle"))
-        .withPrompts({ frontendFramework: "none" });
+        .withPrompts({ frontendFramework: "none" })
+        .on("ready", generator => {
+          installSpy = sinon.spy();
+          generator.npmInstall = installSpy;
+        });
     });
 
     it("should add a livereload script to include", () => {
@@ -52,7 +58,11 @@ describe("Given a bundle generator", () => {
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/bundle"))
-        .withPrompts({ main: "index_test.html", out: "build" });
+        .withPrompts({ main: "index_test.html", out: "build" })
+        .on("ready", generator => {
+          installSpy = sinon.spy();
+          generator.npmInstall = installSpy;
+        });
     });
 
     it("should add the correct tsconfig", () => {
@@ -69,14 +79,14 @@ describe("Given a bundle generator", () => {
     });
 
     it("should install the required dependencies", () => {
-      assert.fileContent([
-        ["package.json", /"parcel-bundler": ".+"/],
-        ["package.json", /"parcel-plugin-static-files-copy": ".+"/],
-        ["package.json", /"@babel\/core": ".+"/],
-        ["package.json", /"concurrently": ".+"/],
-        ["package.json", /"typescript": ".+"/],
-        ["package.json", /"tslint": ".+"/],
-      ]);
+      sinon.assert.calledWith(installSpy, [
+        sinon.match(/typescript@.+/),
+        sinon.match(/tslint@.+/),
+        sinon.match(/parcel-bundler@.+/),
+        sinon.match(/parcel-plugin-static-files-copy@.+/),
+        sinon.match(/@babel\/core@.+/),
+        sinon.match(/concurrently@.+/)
+      ], { "save-dev": true });
     });
   });
 });

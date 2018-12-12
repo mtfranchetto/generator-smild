@@ -40,12 +40,12 @@ describe("Given a server generator", () => {
   });
 
   it("should install the required dependencies", () => {
-    assert.fileContent([
-      ["package.json", /"typescript": ".+"/],
-      ["package.json", /"tslint": ".+"/],
-      ["package.json", /"nodemon": ".+"/],
-      ["package.json", /"ts-node": ".+"/],
-      ["package.json", /"source-map-support": ".+"/],
-    ]);
+    sinon.assert.calledWith(installSpy, [
+      sinon.match(/typescript@.+/),
+      sinon.match(/tslint@.+/),
+      sinon.match(/nodemon@.+/),
+      sinon.match(/ts-node@.+/),
+      sinon.match(/source-map-support@.+/),
+    ], { "save-dev": true });
   });
 });

@@ -8,6 +8,7 @@ describe("Given a test generator", () => {
   let installSpy;
 
   describe("when configuring mocha", () => {
+
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/test"))
@@ -28,12 +29,12 @@ describe("Given a test generator", () => {
     });
 
     it("should install the required dependencies", () => {
-      assert.fileContent([
-        ["package.json", /"ts-node": ".+"/],
-        ["package.json", /"mocha": ".+"/],
-        ["package.json", /"typescript": ".+"/],
-        ["package.json", /"tslint": ".+"/],
-      ]);
+      sinon.assert.calledWith(installSpy, [
+        sinon.match(/typescript@.+/),
+        sinon.match(/tslint@.+/),
+        sinon.match(/ts-node@.+/),
+        sinon.match(/mocha@.+/),
+      ], { "save-dev": true });
     });
 
     it("should not copy the jest config", () => {
@@ -42,10 +43,15 @@ describe("Given a test generator", () => {
   });
 
   describe("when configuring jest", () => {
+
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/test"))
-        .withPrompts({ testRunner: "jest" });
+        .withPrompts({ testRunner: "jest" })
+        .on("ready", generator => {
+          installSpy = sinon.spy();
+          generator.npmInstall = installSpy;
+        });
     });
 
     it("should copy the jest config", () => {
@@ -62,12 +68,12 @@ describe("Given a test generator", () => {
     });
 
     it("should install the required dependencies", () => {
-      assert.fileContent([
-        ["package.json", /"typescript": ".+"/],
-        ["package.json", /"tslint": ".+"/],
-        ["package.json", /"jest": ".+"/],
-        ["package.json", /"ts-jest": ".+"/],
-      ]);
+      sinon.assert.calledWith(installSpy, [
+        sinon.match(/typescript@.+/),
+        sinon.match(/tslint@.+/),
+        sinon.match(/jest@.+/),
+        sinon.match(/ts-jest@.+/),
+      ], { "save-dev": true });
     });
   });
 });

@@ -27,9 +27,9 @@ describe("Given a lib generator", () => {
   });
 
   it("should install the required dependencies", () => {
-    assert.fileContent([
-      ["package.json", /"typescript": ".+"/],
-      ["package.json", /"tslint": ".+"/],
-    ]);
+    sinon.assert.calledWith(installSpy, [
+      sinon.match(/typescript@.+/),
+      sinon.match(/tslint@.+/)
+    ], { "save-dev": true });
   });
 });

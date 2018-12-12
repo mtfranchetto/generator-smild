@@ -49,7 +49,7 @@ module.exports = class extends Generator {
       this.fs.extendJSON(this.destinationPath("jest.config.js"), defaultJestConfig);
     }
 
-    this.npmInstall(dependencies, this);
+    this.npmInstall(dependencies, { "save-dev": true });
     extendPackage({
       scripts: scripts
     }, this);

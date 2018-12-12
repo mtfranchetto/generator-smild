@@ -18,7 +18,7 @@ describe("Given the default generator", () => {
   });
 
   it("should install yalc", () => {
-    sinon.assert.calledWith(installSpy, [sinon.match(/"yalc@.+"/)], { "save-dev": true });
+    sinon.assert.calledWith(installSpy, [sinon.match(/yalc@.+/)], { "save-dev": true });
   });
 
   it("should configure yalc to handle package linking", () => {
