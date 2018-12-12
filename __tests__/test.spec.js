@@ -23,11 +23,15 @@ describe("Given a test generator", () => {
 
     it("should install the required dependencies", () => {
       assert.fileContent([
-        ["package.json", /"ts-node": ".?"/],
-        ["package.json", /"mocha": ".?"/],
-        ["package.json", /"typescript": ".?"/],
-        ["package.json", /"tslint": ".?"/],
+        ["package.json", /"ts-node": ".+"/],
+        ["package.json", /"mocha": ".+"/],
+        ["package.json", /"typescript": ".+"/],
+        ["package.json", /"tslint": ".+"/],
       ]);
+    });
+
+    it("should not copy the jest config", () => {
+      assert.noFile("jest.config.js");
     });
   });
 
@@ -39,7 +43,7 @@ describe("Given a test generator", () => {
     });
 
     it("should copy the jest config", () => {
-      assert.fileContent("jest.config.js", fs.readFileSync(path.join(__dirname, "../generators/test/template/jest.config.js")));
+      assert.jsonFileContent("jest.config.js", require("../generators/test/templates/jest.config"));
     });
 
     it("should configure the right scripts", () => {
@@ -53,10 +57,10 @@ describe("Given a test generator", () => {
 
     it("should install the required dependencies", () => {
       assert.fileContent([
-        ["package.json", /"typescript": ".?"/],
-        ["package.json", /"tslint": ".?"/],
-        ["package.json", /"jest": ".?"/],
-        ["package.json", /"ts-jest": ".?"/],
+        ["package.json", /"typescript": ".+"/],
+        ["package.json", /"tslint": ".+"/],
+        ["package.json", /"jest": ".+"/],
+        ["package.json", /"ts-jest": ".+"/],
       ]);
     });
   });

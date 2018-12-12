@@ -20,17 +20,10 @@ describe("Given a lib generator", () => {
       });
   });
 
-  it("should update correctly the main files in package.json", () => {
-    assert.jsonFileContent("package.json", {
-      main: "build/index.js",
-      typings: "build/index.d.ts"
-    });
-  });
-
   it("should install the required dependencies", () => {
     assert.fileContent([
-      ["package.json", /"typescript": ".?"/],
-      ["package.json", /"tslint": ".?"/],
+      ["package.json", /"typescript": ".+"/],
+      ["package.json", /"tslint": ".+"/],
     ]);
   });
 });

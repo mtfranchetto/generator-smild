@@ -1,5 +1,6 @@
 const Generator = require("yeoman-generator");
 const addDevDeps = require("../../src/addDevDeps");
+const extendPackage = require("../../src/extendPackage");
 
 module.exports = class extends Generator {
   async prompting() {
@@ -18,6 +19,16 @@ module.exports = class extends Generator {
   install() {
     addDevDeps({
       yalc: "1.0.0.pre.25"
+    }, this);
+  }
+
+  config() {
+    extendPackage({
+      scripts: {
+        "link": "yalc add",
+        "rm-link": "yalc remove",
+        "push": "yalc push"
+      }
     }, this);
   }
 

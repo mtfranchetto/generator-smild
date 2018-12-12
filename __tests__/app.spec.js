@@ -12,14 +12,16 @@ describe("Given the default generator", () => {
   });
 
   it("should install yalc", () => {
-    assert.fileContent("package.json", /"yalc": ".?"/);
+    assert.fileContent("package.json", /"yalc": ".+"/);
   });
 
   it("should configure yalc to handle package linking", () => {
     assert.jsonFileContent("package.json", {
-      "link": "yalc add",
-      "rm-link": "yalc remove",
-      "push": "yalc push"
+      scripts: {
+        "link": "yalc add",
+        "rm-link": "yalc remove",
+        "push": "yalc push"
+      }
     });
   });
 });
