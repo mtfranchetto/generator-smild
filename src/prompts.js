@@ -2,14 +2,6 @@ const ProjectTypes = require("./projectTypes");
 
 module.exports = projectType => [
   {
-    type: "list",
-    name: "packageManager",
-    message: "Pick your favourite package manager",
-    choices: ["npm", "yarn"],
-    default: "npm",
-    store: true
-  },
-  {
     name: "main",
     message: "Your main script file",
     default:

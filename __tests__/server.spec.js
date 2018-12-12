@@ -27,4 +27,14 @@ describe("Given a server generator", () => {
     it("should include the source maps enable script", () => {
       assert.fileContent("enable-sourcemaps.js", fs.readFileSync(path.join(__dirname, "../generators/server/templates/enable-sourcemaps.js")));
     });
+
+    it("should install the required dependencies", () => {
+      assert.fileContent([
+        ["package.json", /"typescript": ".?"/],
+        ["package.json", /"tslint": ".?"/],
+        ["package.json", /"nodemon": ".?"/],
+        ["package.json", /"ts-node": ".?"/],
+        ["package.json", /"source-maps-support": ".?"/],
+      ]);
+    });
 });

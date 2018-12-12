@@ -1,4 +1,5 @@
 const Generator = require("yeoman-generator");
+const addDevDeps = require("../../src/addDevDeps");
 
 module.exports = class extends Generator {
   async prompting() {
@@ -14,12 +15,14 @@ module.exports = class extends Generator {
     ]);
   }
 
+  install() {
+    addDevDeps({
+      yalc: "1.0.0.pre.25"
+    }, this);
+  }
+
   runGenerators() {
     this.composeWith(require.resolve(`../${this.answers.projectType}`));
     this.composeWith(require.resolve("../test"));
-  }
-
-  install() {
-    this.npmInstall(["yalc@1.0.0.pre.25"], { "save-dev": true });
   }
 };

@@ -12,6 +12,10 @@ describe("Given a bundle generator", () => {
         .withPrompts({ frontendFramework: "react" });
     });
 
+    it("should install react hot loader", () => {
+      assert.fileContent("package.json", /"react-hot-loader": ".?"/);
+    });
+
     it("should add the babel configuration", () => {
       assert.jsonFileContent(".babelrc", { plugins: ["react-hot-loader/babel"] });
     });
@@ -24,37 +28,47 @@ describe("Given a bundle generator", () => {
         .withPrompts({ frontendFramework: "none" });
     });
 
-
     it("should add a livereload script to include", () => {
       assert.fileContent("livereload.js", fs.readFileSync(path.join(__dirname, "../generators/bundle/template/livereload.js")));
     });
   });
 
-  it("should add the correct tsconfig", async () => {
-    await helpers
-      .run(path.join(__dirname, "../generators/bundle"))
-      .withPrompts({});
-
-    assert.jsonFileContent("tsconfig.json", {
-      "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "sourceMap": true,
-        "module": "esnext"
-      }
+  describe("when the standard config is provided", () => {
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, "../generators/bundle"))
+        .withPrompts({ });
     });
-  });
 
-  it("should the correct build scripts to package.json", async () => {
-    await helpers
-      .run(path.join(__dirname, "../generators/bundle"))
-      .withPrompts({ main: "index_test.html", out: "build" });
+    it("should add the correct tsconfig", () => {
+      assert.jsonFileContent("tsconfig.json", {
+        "compilerOptions": {
+          "allowSyntheticDefaultImports": true,
+          "esModuleInterop": true,
+          "sourceMap": true,
+          "module": "esnext"
+        }
+      });
+    });
 
-    assert.jsonFileContent("package.json", {
-      scripts: {
-        start: "concurrently \"parcel index_test.html --out-dir build\" \"tsc --noEmit\"",
-        build: "parcel build index_test.html --out-dir build"
-      }
+    it("should the correct build scripts to package.json", () => {
+      assert.jsonFileContent("package.json", {
+        scripts: {
+          start: "concurrently \"parcel index_test.html --out-dir build\" \"tsc --noEmit\"",
+          build: "parcel build index_test.html --out-dir build"
+        }
+      });
+    });
+
+    it("should install the required dependencies", () => {
+      assert.fileContent([
+        ["package.json", /"parcel-bundler": ".?"/],
+        ["package.json", /"parcel-plugin-static-files-copy": ".?"/],
+        ["package.json", /"@babel\/core": ".?"/],
+        ["package.json", /"concurrently": ".?"/],
+        ["package.json", /"typescript": ".?"/],
+        ["package.json", /"tslint": ".?"/],
+      ]);
     });
   });
 });

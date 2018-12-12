@@ -18,7 +18,16 @@ describe("Given a test generator", () => {
           test: "mocha -r ts-node/register --recursive test/dummySpec.ts",
           "test-watch": "mocha -r ts-node/register --recursive --watch test/dummySpec.ts"
         }
-      })
+      });
+    });
+
+    it("should install the required dependencies", () => {
+      assert.fileContent([
+        ["package.json", /"ts-node": ".?"/],
+        ["package.json", /"mocha": ".?"/],
+        ["package.json", /"typescript": ".?"/],
+        ["package.json", /"tslint": ".?"/],
+      ]);
     });
   });
 
@@ -40,6 +49,15 @@ describe("Given a test generator", () => {
           "test-watch": "jest --watch"
         }
       });
+    });
+
+    it("should install the required dependencies", () => {
+      assert.fileContent([
+        ["package.json", /"typescript": ".?"/],
+        ["package.json", /"tslint": ".?"/],
+        ["package.json", /"jest": ".?"/],
+        ["package.json", /"ts-jest": ".?"/],
+      ]);
     });
   });
 });

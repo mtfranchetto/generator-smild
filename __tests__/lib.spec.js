@@ -26,4 +26,11 @@ describe("Given a lib generator", () => {
       typings: "build/index.d.ts"
     });
   });
+
+  it("should install the required dependencies", () => {
+    assert.fileContent([
+      ["package.json", /"typescript": ".?"/],
+      ["package.json", /"tslint": ".?"/],
+    ]);
+  });
 });
