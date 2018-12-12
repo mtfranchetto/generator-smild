@@ -1,15 +1,21 @@
 const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
-const fs = require("fs");
+const sinon = require("sinon");
 
 describe("Given a test generator", () => {
+
+  let installSpy;
 
   describe("when configuring mocha", () => {
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/test"))
-        .withPrompts({ testRunner: "mocha", testFiles: "test/dummySpec.ts" });
+        .withPrompts({ testRunner: "mocha", testFiles: "test/dummySpec.ts" })
+        .on("ready", generator => {
+          installSpy = sinon.spy();
+          generator.npmInstall = installSpy;
+        });
     });
 
     it("should configure the right scripts", () => {

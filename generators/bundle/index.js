@@ -2,7 +2,6 @@ const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
 const commonDeps = require("../../src/commonDeps");
-const addDevDeps = require("../../src/addDevDeps");
 const extendPackage = require("../../src/extendPackage");
 const defaultTSConfig = require("./templates/tsconfig.json");
 const defaultBabelConfig = require("./templates/babel.config");
@@ -13,12 +12,12 @@ module.exports = class extends Generator {
   }
 
   install() {
-    addDevDeps({...commonDeps,
-      "parcel-bundler": "^1.10.3",
-      "parcel-plugin-static-files-copy": "^1.2.4",
-      "@babel/core": "^7.2.0",
-      "concurrently": "^4.1.0",
-    }, this);
+    this.npmInstall(commonDeps.concat([
+      "parcel-bundler@^1.10.3",
+      "parcel-plugin-static-files-copy@^1.2.4",
+      "@babel/core@^7.2.0",
+      "concurrently@^4.1.0",
+    ]), { "save-dev": true });
   }
 
   config() {
@@ -38,9 +37,7 @@ module.exports = class extends Generator {
 
     if (this.answers.frontendFramework === 'react') {
       this.fs.extendJSON(this.destinationPath("babel.config.js"), defaultBabelConfig);
-      addDevDeps({
-        "react-hot-loader": "^4.5.2"
-       }, this);
+      this.npmInstall(["react-hot-loader@^4.5.2"], { "save-dev": true });
     }
 
     this.fs.extendJSON(this.destinationPath("tsconfig.json"), defaultTSConfig);

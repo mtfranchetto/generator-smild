@@ -1,18 +1,24 @@
 const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
-const fs = require("fs");
+const sinon = require("sinon");
 
 describe("Given the default generator", () => {
+
+  let installSpy;
 
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, "../generators/app"))
-      .withPrompts({ });
+      .withPrompts({ })
+      .on("ready", generator => {
+        installSpy = sinon.spy();
+        generator.npmInstall = installSpy;
+      });
   });
 
   it("should install yalc", () => {
-    assert.fileContent("package.json", /"yalc": ".+"/);
+    sinon.assert.calledWith(installSpy, [sinon.match(/"yalc@.+"/)], { "save-dev": true });
   });
 
   it("should configure yalc to handle package linking", () => {

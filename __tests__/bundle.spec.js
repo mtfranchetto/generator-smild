@@ -2,14 +2,21 @@ const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
 const fs = require("fs");
+const sinon = require("sinon");
 
 describe("Given a bundle generator", () => {
+
+  let installSpy;
 
   describe("when react as a framework is selected", () => {
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/bundle"))
-        .withPrompts({ frontendFramework: "react" });
+        .withPrompts({ frontendFramework: "react" })
+        .on("ready", generator => {
+          installSpy = sinon.spy();
+          generator.npmInstall = installSpy;
+        });
     });
 
     it("should install react hot loader", () => {

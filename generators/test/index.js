@@ -1,5 +1,4 @@
 const Generator = require("yeoman-generator");
-const addDevDeps = require("../../src/addDevDeps");
 const commonDeps = require("../../src/commonDeps");
 const extendPackage = require("../../src/extendPackage");
 const defaultJestConfig = require("./templates/jest.config");
@@ -30,19 +29,19 @@ module.exports = class extends Generator {
     let scripts = {};
 
     if (this.answers.testRunner === "mocha") {
-      dependencies = {...dependencies,
-        "ts-node": "^7.0.1",
-        "mocha": "^5.2.0"
-      };
+      dependencies = dependencies.concat([
+        "ts-node@^7.0.1",
+        "mocha@^5.2.0"
+      ]);
       scripts = {
         "test": `mocha -r ts-node/register --recursive ${this.answers.testFiles}`,
         "test-watch": `mocha -r ts-node/register --recursive --watch ${this.answers.testFiles}`
       }
     } else {
-      dependencies = { ... dependencies,
-        "jest": "^23.6.0",
-        "ts-jest": "^23.10.5"
-      };
+      dependencies = dependencies.concat([
+        "jest@^23.6.0",
+        "ts-jest@^23.10.5"
+      ]);
       scripts = {
         "test": "jest",
         "test-watch": "jest --watch"
@@ -50,7 +49,7 @@ module.exports = class extends Generator {
       this.fs.extendJSON(this.destinationPath("jest.config.js"), defaultJestConfig);
     }
 
-    addDevDeps(dependencies, this);
+    this.npmInstall(dependencies, this);
     extendPackage({
       scripts: scripts
     }, this);

@@ -1,14 +1,20 @@
 const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
-const fs = require("fs");
+const sinon = require("sinon");
 
 describe("Given a lib generator", () => {
+
+  let installSpy;
 
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, "../generators/lib"))
-      .withPrompts({ main: "src/index.ts", out: "build" });
+      .withPrompts({ main: "src/index.ts", out: "build" })
+      .on("ready", generator => {
+        installSpy = sinon.spy();
+        generator.npmInstall = installSpy;
+      });
   });
 
   it("should create the build scripts correctly", () => {

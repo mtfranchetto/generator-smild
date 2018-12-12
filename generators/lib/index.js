@@ -1,7 +1,6 @@
 const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
-const addDevDeps = require("../../src/addDevDeps");
 const commonDeps = require("../../src/commonDeps");
 const extendPackage = require("../../src/extendPackage");
 
@@ -11,7 +10,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    addDevDeps(commonDeps, this);
+    this.npmInstall(commonDeps, { "save-dev": true });
   }
 
   config() {

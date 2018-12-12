@@ -2,7 +2,6 @@ const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
 const commonDeps = require("../../src/commonDeps");
-const addDevDeps = require("../../src/addDevDeps");
 const extendPackage = require("../../src/extendPackage");
 const defaultTSConfig = require("./templates/tsconfig.json");
 const defaultNodemonConfig = require("./templates/nodemon.json");
@@ -32,10 +31,10 @@ module.exports = class extends Generator {
   }
 
   install() {
-    addDevDeps({...commonDeps,
-      "nodemon": "^1.18.1",
-      "ts-node": "^7.0.1",
-      "source-map-support": "~0.5.9"
-    }, this);
+    this.npmInstall(commonDeps.concat([
+      "nodemon@1.18.1",
+      "ts-node@^7.0.1",
+      "source-map-support@~0.5.9"
+    ]), { "save-dev": true });
   }
 };
