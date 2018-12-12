@@ -10,7 +10,7 @@ describe("Given the default generator", () => {
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, "../generators/app"))
-      .withPrompts({ })
+      .withPrompts({})
       .on("ready", generator => {
         installSpy = sinon.spy();
         generator.npmInstall = installSpy;

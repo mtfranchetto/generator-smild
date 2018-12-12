@@ -18,12 +18,12 @@ describe("Given a lib generator", () => {
   });
 
   it("should create the build scripts correctly", () => {
-      assert.jsonFileContent("package.json", {
-        scripts: {
-          start: "tsc -w --noEmit",
-          build: "tsc --outDir build"
-        }
-      });
+    assert.jsonFileContent("package.json", {
+      scripts: {
+        start: "tsc -w --noEmit",
+        build: "tsc --outDir build"
+      }
+    });
   });
 
   it("should install the required dependencies", () => {
