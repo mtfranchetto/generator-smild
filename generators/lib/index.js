@@ -2,7 +2,7 @@ const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
 const addDevDeps = require("../../src/addDevDeps");
-const addDevDeps = require("../../src/commonDeps");
+const commonDeps = require("../../src/commonDeps");
 
 module.exports = class extends Generator {
   async prompting() {
