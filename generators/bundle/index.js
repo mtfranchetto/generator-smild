@@ -3,7 +3,6 @@ const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
 const extendPackage = require("../../src/extendPackage");
 const defaultTSConfig = require("./templates/tsconfig.json");
-const defaultBabelConfig = require("./templates/babel.config");
 const chalk = require("chalk");
 
 module.exports = class extends Generator {
@@ -36,7 +35,10 @@ module.exports = class extends Generator {
     }
 
     if (this.answers.frontendFramework === 'react') {
-      this.fs.extendJSON(this.destinationPath("babel.config.js"), defaultBabelConfig);
+      this.fs.copy(
+        this.templatePath("babel.config.js"),
+        this.destinationPath("babel.config.js")
+      );
       this.npmInstall(["react-hot-loader@^4.5.2"], { "save-dev": true });
     }
 

@@ -26,7 +26,10 @@ describe("Given a bundle generator", () => {
     });
 
     it("should add the babel configuration", () => {
-      assert.jsonFileContent("babel.config.js", require("../generators/bundle/templates/babel.config"));
+      assert.fileContent(
+        "babel.config.js",
+        fs.readFileSync(path.join(__dirname, "../generators/bundle/templates/babel.config.js"), "utf8")
+      );
     });
 
     it("should not copy the livereload script", () => {
@@ -58,7 +61,7 @@ describe("Given a bundle generator", () => {
     beforeAll(() => {
       return helpers
         .run(path.join(__dirname, "../generators/bundle"))
-        .withPrompts({ main: "index_test.html", out: "build" })
+        .withPrompts({ main: "index_test.html", out: "build", port: 1234 })
         .on("ready", generator => {
           installSpy = sinon.spy();
           generator.npmInstall = installSpy;
