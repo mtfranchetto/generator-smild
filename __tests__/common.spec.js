@@ -20,7 +20,6 @@ describe("Given the common generator", () => {
   it("should install the common dependencies", () => {
     sinon.assert.calledWith(installSpy, [
       sinon.match(/typescript@.+/),
-      sinon.match(/tslint@.+/),
       sinon.match(/yalc@.+/)
     ], { "save-dev": true });
   });
