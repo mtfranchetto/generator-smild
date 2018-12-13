@@ -34,7 +34,11 @@
     "yeoman-generator": "^3.1.1"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "generators/bundle/templates"
+    ]
   },
   "scripts": {
     "test": "jest"
