@@ -2,32 +2,60 @@ const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
 const sinon = require("sinon");
+const projectTypes = require("../src/projectTypes");
 
 describe("Given the default generator", () => {
 
-  let installSpy;
+  let composeSpy;
 
-  beforeAll(() => {
-    return helpers
-      .run(path.join(__dirname, "../generators/app"))
-      .withPrompts({})
-      .on("ready", generator => {
-        installSpy = sinon.spy();
-        generator.npmInstall = installSpy;
-      });
+  describe("when generating a bundle project", () => {
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, "../generators/app"))
+        .withPrompts({ projectType: projectTypes.BUNDLE})
+        .on("ready", generator => {
+          composeSpy = sinon.spy();
+          generator.composeWith = composeSpy;
+        });
+    });
+    it("should call the right generators", () => {
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/common"));
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/bundle"));
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/test"));
+    });
   });
 
-  it("should install yalc", () => {
-    sinon.assert.calledWith(installSpy, [sinon.match(/yalc@.+/)], { "save-dev": true });
+  describe("when generating a lib project", () => {
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, "../generators/app"))
+        .withPrompts({ projectType: projectTypes.LIB})
+        .on("ready", generator => {
+          composeSpy = sinon.spy();
+          generator.composeWith = composeSpy;
+        });
+    });
+    it("should call the right generators", () => {
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/common"));
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/lib"));
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/test"));
+    });
   });
 
-  it("should configure yalc to handle package linking", () => {
-    assert.jsonFileContent("package.json", {
-      scripts: {
-        "link": "yalc add",
-        "rm-link": "yalc remove",
-        "push": "yalc push"
-      }
+  describe("when generating a server project", () => {
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, "../generators/app"))
+        .withPrompts({ projectType: projectTypes.SERVER})
+        .on("ready", generator => {
+          composeSpy = sinon.spy();
+          generator.composeWith = composeSpy;
+        });
+    });
+    it("should call the right generators", () => {
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/common"));
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/server"));
+      sinon.assert.calledWith(composeSpy, require.resolve("../generators/test"));
     });
   });
 });
