@@ -20,7 +20,7 @@ describe("Given a lib generator", () => {
   it("should create the build scripts correctly", () => {
     assert.jsonFileContent("package.json", {
       scripts: {
-        start: "tsc -w --noEmit",
+        start: "tsc -w",
         build: "tsc"
       }
     });

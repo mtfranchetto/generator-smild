@@ -17,7 +17,7 @@ module.exports = class extends Generator {
 
     extendPackage({
       scripts: {
-        start: "tsc -w --noEmit",
+        start: "tsc -w",
         build: `tsc`
       }
     }, this);
