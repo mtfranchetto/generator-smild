@@ -43,7 +43,8 @@ module.exports = class extends Generator {
       ];
       scripts = {
         "test": "jest",
-        "test-watch": "jest --watch"
+        "test-watch": "jest --watch",
+        "coverage": "jest --coverage"
       }
       this.fs.extendJSON(this.destinationPath("jest.config.js"), defaultJestConfig);
     }

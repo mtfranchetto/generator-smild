@@ -65,6 +65,14 @@ describe("Given a test generator", () => {
       });
     });
 
+    it("should add a command to run a test coverage", () => {
+      assert.jsonFileContent("package.json", {
+        scripts: {
+          coverage: "jest --coverage"
+        }
+      });
+    });
+
     it("should install the required dependencies", () => {
       sinon.assert.calledWith(installSpy, [
         sinon.match(/jest@.+/),
