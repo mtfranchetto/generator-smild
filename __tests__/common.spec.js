@@ -17,8 +17,12 @@ describe("Given the common generator", () => {
       });
   });
 
-  it("should install yalc", () => {
-    sinon.assert.calledWith(installSpy, [sinon.match(/yalc@.+/)], { "save-dev": true });
+  it("should install the common dependencies", () => {
+    sinon.assert.calledWith(installSpy, [
+      sinon.match(/typescript@.+/),
+      sinon.match(/tslint@.+/),
+      sinon.match(/yalc@.+/)
+    ], { "save-dev": true });
   });
 
   it("should configure yalc to handle package linking", () => {

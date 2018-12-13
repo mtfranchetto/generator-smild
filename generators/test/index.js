@@ -1,5 +1,4 @@
 const Generator = require("yeoman-generator");
-const commonDeps = require("../../src/commonDeps");
 const extendPackage = require("../../src/extendPackage");
 const defaultJestConfig = require("./templates/jest.config");
 
@@ -25,23 +24,23 @@ module.exports = class extends Generator {
   }
 
   install() {
-    let dependencies = commonDeps;
+    let dependencies = [];
     let scripts = {};
 
     if (this.answers.testRunner === "mocha") {
-      dependencies = dependencies.concat([
+      dependencies = [
         "ts-node@^7.0.1",
         "mocha@^5.2.0"
-      ]);
+      ];
       scripts = {
         "test": `mocha -r ts-node/register --recursive ${this.answers.testFiles}`,
         "test-watch": `mocha -r ts-node/register --recursive --watch ${this.answers.testFiles}`
       }
     } else {
-      dependencies = dependencies.concat([
+      dependencies = [
         "jest@^23.6.0",
         "ts-jest@^23.10.5"
-      ]);
+      ];
       scripts = {
         "test": "jest",
         "test-watch": "jest --watch"

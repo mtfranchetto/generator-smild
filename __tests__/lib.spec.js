@@ -25,11 +25,4 @@ describe("Given a lib generator", () => {
       }
     });
   });
-
-  it("should install the required dependencies", () => {
-    sinon.assert.calledWith(installSpy, [
-      sinon.match(/typescript@.+/),
-      sinon.match(/tslint@.+/)
-    ], { "save-dev": true });
-  });
 });

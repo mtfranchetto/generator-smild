@@ -4,7 +4,11 @@ const extendPackage = require("../../src/extendPackage");
 module.exports = class extends Generator {
 
   install() {
-    this.npmInstall(["yalc@1.0.0-pre.24"], { "save-dev": true });
+    this.npmInstall([
+      "typescript@^3.2.2",
+      "tslint@^5.1.1",
+      "yalc@1.0.0-pre.24"
+    ], { "save-dev": true });
   }
 
   config() {

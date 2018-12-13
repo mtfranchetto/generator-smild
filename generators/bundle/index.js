@@ -1,7 +1,6 @@
 const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
-const commonDeps = require("../../src/commonDeps");
 const extendPackage = require("../../src/extendPackage");
 const defaultTSConfig = require("./templates/tsconfig.json");
 const defaultBabelConfig = require("./templates/babel.config");
@@ -12,12 +11,12 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall(commonDeps.concat([
+    this.npmInstall([
       "parcel-bundler@^1.10.3",
       "parcel-plugin-static-files-copy@^1.2.4",
       "@babel/core@^7.2.0",
       "concurrently@^4.1.0",
-    ]), { "save-dev": true });
+    ], { "save-dev": true });
   }
 
   config() {

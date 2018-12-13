@@ -80,8 +80,6 @@ describe("Given a bundle generator", () => {
 
     it("should install the required dependencies", () => {
       sinon.assert.calledWith(installSpy, [
-        sinon.match(/typescript@.+/),
-        sinon.match(/tslint@.+/),
         sinon.match(/parcel-bundler@.+/),
         sinon.match(/parcel-plugin-static-files-copy@.+/),
         sinon.match(/@babel\/core@.+/),

@@ -30,8 +30,6 @@ describe("Given a test generator", () => {
 
     it("should install the required dependencies", () => {
       sinon.assert.calledWith(installSpy, [
-        sinon.match(/typescript@.+/),
-        sinon.match(/tslint@.+/),
         sinon.match(/ts-node@.+/),
         sinon.match(/mocha@.+/),
       ], { "save-dev": true });
@@ -69,8 +67,6 @@ describe("Given a test generator", () => {
 
     it("should install the required dependencies", () => {
       sinon.assert.calledWith(installSpy, [
-        sinon.match(/typescript@.+/),
-        sinon.match(/tslint@.+/),
         sinon.match(/jest@.+/),
         sinon.match(/ts-jest@.+/),
       ], { "save-dev": true });
