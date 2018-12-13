@@ -2,6 +2,7 @@ const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
 const extendPackage = require("../../src/extendPackage");
+const defaultTSConfig = require("./templates/tsconfig");
 
 module.exports = class extends Generator {
   async prompting() {
@@ -9,10 +10,9 @@ module.exports = class extends Generator {
   }
 
   config() {
-    this.fs.copyTpl(
-      this.templatePath("tsconfig.json"),
+    this.fs.extendJSON(
       this.destinationPath("tsconfig.json"),
-      { main: this.answers.main, out: this.answers.out }
+      defaultTSConfig(this.answers.main, this.answers.out)
     );
 
     extendPackage({
