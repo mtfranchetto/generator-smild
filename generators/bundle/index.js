@@ -29,7 +29,7 @@ module.exports = class extends Generator {
     }, this);
 
     if (this.answers.frontendFramework !== "react") {
-      this.fs.copyTpl(
+      this.fs.copy(
         this.templatePath("livereload.js"),
         this.destinationPath("livereload.js")
       );

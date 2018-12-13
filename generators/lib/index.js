@@ -9,10 +9,16 @@ module.exports = class extends Generator {
   }
 
   config() {
+    this.fs.copyTpl(
+      this.templatePath("tsconfig.json"),
+      this.destinationPath("tsconfig.json"),
+      { main: this.answers.main, out: this.answers.out }
+    );
+
     extendPackage({
       scripts: {
         start: "tsc -w --noEmit",
-        build: `tsc --outDir ${this.answers.out}`
+        build: `tsc`
       }
     }, this);
   }

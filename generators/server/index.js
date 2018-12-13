@@ -12,7 +12,7 @@ module.exports = class extends Generator {
   }
 
   config() {
-    this.fs.copyTpl(
+    this.fs.copy(
       this.templatePath("enable-sourcemaps.js"),
       this.destinationPath("enable-sourcemaps.js")
     );

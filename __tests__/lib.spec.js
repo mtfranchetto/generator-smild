@@ -10,7 +10,7 @@ describe("Given a lib generator", () => {
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, "../generators/lib"))
-      .withPrompts({ main: "src/index.ts", out: "build" })
+      .withPrompts({ main: "src/**/*", out: "build" })
       .on("ready", generator => {
         installSpy = sinon.spy();
         generator.npmInstall = installSpy;
@@ -21,8 +21,23 @@ describe("Given a lib generator", () => {
     assert.jsonFileContent("package.json", {
       scripts: {
         start: "tsc -w --noEmit",
-        build: "tsc --outDir build"
+        build: "tsc"
       }
+    });
+  });
+
+  it("should config typescript for the right sources", () => {
+    assert.jsonFileContent("tsconfig.json", {
+      "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "declaration": true,
+        "sourceMap": true,
+        "outDir": "build"
+      },
+      "include": [
+        "src/**/*"
+      ]
     });
   });
 });
