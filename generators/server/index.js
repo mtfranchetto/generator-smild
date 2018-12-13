@@ -4,6 +4,7 @@ const ProjectTypes = require("../../src/projectTypes");
 const extendPackage = require("../../src/extendPackage");
 const defaultTSConfig = require("./templates/tsconfig.json");
 const defaultNodemonConfig = require("./templates/nodemon.json");
+const chalk = require("chalk");
 
 module.exports = class extends Generator {
   async prompting() {
@@ -35,5 +36,10 @@ module.exports = class extends Generator {
       "ts-node@^7.0.1",
       "source-map-support@~0.5.9"
     ], { "save-dev": true });
+  }
+
+  infos() {
+    console.log(chalk.inverse(`Please require ${chalk.green("enable-sourcemaps.js")}`+
+      ` in your main file to add source maps support`))
   }
 };

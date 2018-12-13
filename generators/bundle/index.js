@@ -4,6 +4,7 @@ const ProjectTypes = require("../../src/projectTypes");
 const extendPackage = require("../../src/extendPackage");
 const defaultTSConfig = require("./templates/tsconfig.json");
 const defaultBabelConfig = require("./templates/babel.config");
+const chalk = require("chalk");
 
 module.exports = class extends Generator {
   async prompting() {
@@ -40,5 +41,12 @@ module.exports = class extends Generator {
     }
 
     this.fs.extendJSON(this.destinationPath("tsconfig.json"), defaultTSConfig);
+  }
+
+  infos() {
+    if (this.answers.frontendFramework !== "react") {
+      console.log(chalk.inverse(`Please require ${chalk.green("livereload.js")}`+
+        ` in your main file to reload the browser on files changes`));
+    }
   }
 };
