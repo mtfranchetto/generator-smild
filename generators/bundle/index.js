@@ -23,7 +23,7 @@ module.exports = class extends Generator {
   config() {
     extendPackage({
       scripts: {
-        start: `concurrently "parcel ${this.answers.main} --out-dir ${this.answers.out}" "tsc -w --noEmit"`,
+        start: `concurrently "parcel ${this.answers.main} --out-dir ${this.answers.out} -p ${this.answers.port}" "tsc -w --noEmit"`,
         build: `tsc --noEmit && parcel build ${this.answers.main} --out-dir ${this.answers.out}`
       }
     }, this);

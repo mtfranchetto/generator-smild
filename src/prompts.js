@@ -9,6 +9,13 @@ module.exports = projectType => ([
     store: true
   },
   {
+    name: "port",
+    when: () => projectType === ProjectTypes.BUNDLE,
+    message: "Dev server port",
+    default: 1234,
+    store: true
+  },
+  {
     name: "files",
     when: () => projectType !== ProjectTypes.BUNDLE,
     message: "Project source files",
