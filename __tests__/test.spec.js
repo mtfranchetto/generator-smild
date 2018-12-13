@@ -22,8 +22,8 @@ describe("Given a test generator", () => {
     it("should configure the right scripts", () => {
       assert.jsonFileContent("package.json", {
         scripts: {
-          test: "mocha -r ts-node/register --recursive test/dummySpec.ts",
-          "test-watch": "mocha -r ts-node/register --recursive --watch test/dummySpec.ts"
+          test: "mocha -r ts-node/register \"test/dummySpec.ts\"",
+          "test-watch": "mocha -r ts-node/register --watch --watch-extensions ts,tsx \"test/dummySpec.ts\""
         }
       });
     });

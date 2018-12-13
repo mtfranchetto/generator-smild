@@ -33,8 +33,8 @@ module.exports = class extends Generator {
         "mocha@^5.2.0"
       ];
       scripts = {
-        "test": `mocha -r ts-node/register --recursive ${this.answers.testFiles}`,
-        "test-watch": `mocha -r ts-node/register --recursive --watch ${this.answers.testFiles}`
+        "test": `mocha -r ts-node/register "${this.answers.testFiles}"`,
+        "test-watch": `mocha -r ts-node/register --watch --watch-extensions ts,tsx "${this.answers.testFiles}"`
       }
     } else {
       dependencies = [
