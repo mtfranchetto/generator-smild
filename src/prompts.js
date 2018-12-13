@@ -8,7 +8,7 @@ module.exports = projectType => {
   return [
     {
       name: "main",
-      message: projectType !== ProjectTypes.LIB ? "Project main file" : "Project source files",
+      message: projectType === ProjectTypes.LIB ? "Project source files" : "Project main file",
       default: mainFiles[projectType],
       store: true
     },
