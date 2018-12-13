@@ -10,7 +10,7 @@ module.exports = projectType => [
   },
   {
     name: "out",
-    message: "Where to put built files",
+    message: "Where to put build files",
     default: "dist",
     store: true
   },

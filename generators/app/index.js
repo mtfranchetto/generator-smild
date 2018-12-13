@@ -6,7 +6,7 @@ module.exports = class extends Generator {
       {
         type: "list",
         name: "projectType",
-        message: "Choose how this project will run",
+        message: "Choose how this project will be built",
         choices: ["bundle", "lib", "server"],
         default: "bundle",
         store: true
