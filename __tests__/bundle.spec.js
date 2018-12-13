@@ -72,8 +72,8 @@ describe("Given a bundle generator", () => {
     it("should the correct build scripts to package.json", () => {
       assert.jsonFileContent("package.json", {
         scripts: {
-          start: "concurrently \"parcel index_test.html --out-dir build\" \"tsc --noEmit\"",
-          build: "parcel build index_test.html --out-dir build"
+          start: "concurrently \"parcel index_test.html --out-dir build\" \"tsc -w --noEmit\"",
+          build: "tsc --noEmit && parcel build index_test.html --out-dir build"
         }
       });
     });
