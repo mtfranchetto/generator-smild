@@ -10,7 +10,7 @@ describe("Given a lib generator", () => {
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, "../generators/lib"))
-      .withPrompts({ main: "src/**/*", out: "build" })
+      .withPrompts({ files: "sources/**/*", out: "build" })
       .on("ready", generator => {
         installSpy = sinon.spy();
         generator.npmInstall = installSpy;
@@ -36,7 +36,7 @@ describe("Given a lib generator", () => {
         "outDir": "build"
       },
       "include": [
-        "src/**/*"
+        "sources/**/*"
       ]
     });
   });

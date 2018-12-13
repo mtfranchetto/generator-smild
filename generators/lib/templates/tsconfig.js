@@ -1,4 +1,4 @@
-module.exports = (main, out) => ({
+module.exports = (files, out) => ({
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
@@ -7,6 +7,6 @@ module.exports = (main, out) => ({
     "outDir": out
   },
   "include": [
-    main
+    files
   ]
 });

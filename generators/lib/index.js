@@ -12,7 +12,7 @@ module.exports = class extends Generator {
   config() {
     this.fs.extendJSON(
       this.destinationPath("tsconfig.json"),
-      defaultTSConfig(this.answers.main, this.answers.out)
+      defaultTSConfig(this.answers.files, this.answers.out)
     );
 
     extendPackage({

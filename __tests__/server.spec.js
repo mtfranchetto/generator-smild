@@ -11,7 +11,7 @@ describe("Given a server generator", () => {
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, "../generators/server"))
-      .withPrompts({ main: "src/index.ts", out: "dist" })
+      .withPrompts({ files: "src/**/*.ts", main: "src/index.ts", out: "dist" })
       .on("ready", generator => {
         installSpy = sinon.spy();
         generator.npmInstall = installSpy;
@@ -26,13 +26,22 @@ describe("Given a server generator", () => {
     assert.jsonFileContent("package.json", {
       scripts: {
         start: "nodemon src/index.ts",
-        build: "tsc --outDir dist"
+        build: "tsc"
       }
     })
   });
 
   it("should add the correct tsconfig", () => {
-    assert.jsonFileContent("tsconfig.json", require("../generators/server/templates/tsconfig.json"));
+    assert.jsonFileContent("tsconfig.json", {
+      "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "outDir": "dist"
+      },
+      "include": [
+        "src/**/*.ts"
+      ]
+    });
   });
 
   it("should include the source maps enable script", () => {

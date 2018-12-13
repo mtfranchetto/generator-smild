@@ -1,31 +1,33 @@
 const ProjectTypes = require("./projectTypes");
-const mainFiles = {};
-mainFiles[ProjectTypes.LIB] = "src/**/*";
-mainFiles[ProjectTypes.BUNDLE] = "index.html";
-mainFiles[ProjectTypes.SERVER] = "src/index.ts";
 
-module.exports = projectType => {
-  return [
-    {
-      name: "main",
-      message: projectType === ProjectTypes.LIB ? "Project source files" : "Project main file",
-      default: mainFiles[projectType],
-      store: true
-    },
-    {
-      name: "out",
-      message: "Where to put build files",
-      default: "dist",
-      store: true
-    },
-    {
-      name: "frontendFramework",
-      when: () => projectType === ProjectTypes.BUNDLE,
-      type: "list",
-      message: "Frontend framework for this project",
-      default: "react",
-      choices: ["react", "none"],
-      store: true
-    }
-  ];
-}
+module.exports = projectType => ([
+  {
+    name: "main",
+    when: () => projectType !== ProjectTypes.LIB,
+    message: "Project main file",
+    default: projectType === ProjectTypes.BUNDLE ? "index.html" : "src/index.ts",
+    store: true
+  },
+  {
+    name: "files",
+    when: () => projectType !== ProjectTypes.BUNDLE,
+    message: "Project source files",
+    default: "src/**/*",
+    store: true
+  },
+  {
+    name: "out",
+    message: "Where to put build files",
+    default: "dist",
+    store: true
+  },
+  {
+    name: "frontendFramework",
+    when: () => projectType === ProjectTypes.BUNDLE,
+    type: "list",
+    message: "Frontend framework for this project",
+    default: "react",
+    choices: ["react", "none"],
+    store: true
+  }
+]);

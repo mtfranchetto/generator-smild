@@ -45,7 +45,7 @@ module.exports = class extends Generator {
 
   infos() {
     if (this.answers.frontendFramework !== "react") {
-      console.log(chalk.inverse(`Please require ${chalk.green("livereload.js")}`+
+      console.log(chalk.inverse(`Please import ${chalk.green("livereload.js")}`+
         ` in your main file to reload the browser on files changes`));
     }
   }

@@ -2,7 +2,7 @@ const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
 const extendPackage = require("../../src/extendPackage");
-const defaultTSConfig = require("./templates/tsconfig.json");
+const defaultTSConfig = require("./templates/tsconfig");
 const defaultNodemonConfig = require("./templates/nodemon.json");
 const chalk = require("chalk");
 
@@ -22,11 +22,14 @@ module.exports = class extends Generator {
     extendPackage({
       scripts: {
         start: `nodemon ${this.answers.main}`,
-        build: `tsc --outDir ${this.answers.out}`
+        build: "tsc"
       }
     }, this);
 
-    this.fs.extendJSON(this.destinationPath("tsconfig.json"), defaultTSConfig);
+    this.fs.extendJSON(
+      this.destinationPath("tsconfig.json"),
+      defaultTSConfig(this.answers.files, this.answers.out)
+    );
     this.fs.extendJSON(this.destinationPath("nodemon.json"), defaultNodemonConfig);
   }
 
@@ -39,7 +42,7 @@ module.exports = class extends Generator {
   }
 
   infos() {
-    console.log(chalk.inverse(`Please require ${chalk.green("enable-sourcemaps.js")}`+
+    console.log(chalk.inverse(`Please import ${chalk.green("enable-sourcemaps.js")}` +
       ` in your main file to add source maps support`))
   }
 };
