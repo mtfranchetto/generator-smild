@@ -69,7 +69,24 @@ describe("Given a bundle generator", () => {
     });
 
     it("should add the correct tsconfig", () => {
-      assert.jsonFileContent("tsconfig.json", require("../generators/bundle/templates/tsconfig.json"));
+      assert.jsonFileContent("tsconfig.json", {
+        "compilerOptions": {
+          "allowSyntheticDefaultImports": true,
+          "esModuleInterop": true,
+          "sourceMap": true,
+          "module": "esnext",
+          "moduleResolution": "node"
+        }
+      });
+    });
+
+    it("should exclude some folders to avoid redundant typescript watches", () => {
+      assert.jsonFileContent("tsconfig.json", {
+        exclude: [
+          "build/**/*",
+          ".cache/**/*"
+        ]
+      });
     });
 
     it("should the correct build scripts to package.json", () => {

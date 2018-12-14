@@ -2,7 +2,7 @@ const Generator = require("yeoman-generator");
 const promptsFor = require("../../src/prompts");
 const ProjectTypes = require("../../src/projectTypes");
 const extendPackage = require("../../src/extendPackage");
-const defaultTSConfig = require("./templates/tsconfig.json");
+const defaultTSConfig = require("./templates/tsconfig");
 const chalk = require("chalk");
 
 module.exports = class extends Generator {
@@ -42,7 +42,10 @@ module.exports = class extends Generator {
       this.npmInstall(["react-hot-loader@^4.5.2"], { "save-dev": true });
     }
 
-    this.fs.extendJSON(this.destinationPath("tsconfig.json"), defaultTSConfig);
+    this.fs.extendJSON(
+      this.destinationPath("tsconfig.json"),
+      defaultTSConfig(this.answers.out)
+    );
   }
 
   infos() {
