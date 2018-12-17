@@ -2,6 +2,7 @@ const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
 const sinon = require("sinon");
+const fs = require("fs");
 
 describe("Given a test generator", () => {
 
@@ -32,11 +33,20 @@ describe("Given a test generator", () => {
       sinon.assert.calledWith(installSpy, [
         sinon.match(/ts-node@.+/),
         sinon.match(/mocha@.+/),
+        sinon.match(/@types\/mocha@.+/),
       ], { "save-dev": true });
     });
 
     it("should not copy the jest config", () => {
       assert.noFile("jest.config.js");
+    });
+
+    it("should add mocha types to tsconfig", () => {
+      assert.jsonFileContent("tsconfig.json", {
+        "compilerOptions": {
+          "types": ["mocha"]
+        }
+      });
     });
   });
 
@@ -53,7 +63,18 @@ describe("Given a test generator", () => {
     });
 
     it("should copy the jest config", () => {
-      assert.jsonFileContent("jest.config.js", require("../generators/test/templates/jest.config"));
+      assert.fileContent(
+        "jest.config.js",
+        fs.readFileSync(path.join(__dirname, "../generators/test/templates/jest.config.js"), "utf8")
+      );
+    });
+
+    it("should add jest types to tsconfig", () => {
+      assert.jsonFileContent("tsconfig.json", {
+        "compilerOptions": {
+          "types": ["jest"]
+        }
+      });
     });
 
     it("should configure the right scripts", () => {
@@ -77,6 +98,7 @@ describe("Given a test generator", () => {
       sinon.assert.calledWith(installSpy, [
         sinon.match(/jest@.+/),
         sinon.match(/ts-jest@.+/),
+        sinon.match(/@types\/jest@.+/)
       ], { "save-dev": true });
     });
   });
