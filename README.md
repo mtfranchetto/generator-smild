@@ -1,7 +1,7 @@
 # generator-smild [![NPM version][npm-image]][npm-url]
 > An opinionated generator to build JavaScript projects
 
-Transitioning from code to running code is not always easy in JavaScript. Over the years this process has become simpler thanks to projects like browserify, Webpack and ParcelJS but still some configurations caveats must be addressed to have a fully functioning solution. This project aims to give you a simpler way to configure your application in an opinionated way that can be tested and built with a single command.
+Transitioning from code to running code is not always easy in JavaScript. Over the years this process has become simpler thanks to projects like browserify, Webpack and ParcelJS but still some configuration caveats must be addressed to have a fully functioning solution. This project aims to give you a simpler way to configure your application in an opinionated way that can be tested and built with a single command.
 
 ## Installation
 
@@ -39,7 +39,7 @@ This starts Parcel in watch mode and spawns a dev server (default port 1234) to 
 ```bash
 npm run build
 ```
-Used to build your app in production mode with minfify turned on and files revisioning.
+Used to build your app in production mode with minify turned on and files revisioning enabled.
 
 ## Server setup
 
@@ -61,7 +61,7 @@ Your main file is ran with live reload enabled.
 ```bash
 npm run build
 ```
-Source files are transpiled with _tsc_ and put in the build folder
+Source files are transpiled with _tsc_ and put in the build folder.
 
 ## Lib setup
 
@@ -91,7 +91,12 @@ Executes the matching unit test using the selected test runner.
 ```bash
 npm run test-watch
 ```
-The same as the command above but using watch mode to re run test on file changes.
+The same as the command above but using watch mode to re run the test on file changes.
+
+```bash
+npm run coverage
+```
+Executes the matching unit test producing a coverage report.
 
 ```bash
 npm run link [package-name]
@@ -109,6 +114,11 @@ npm run push
 Alias for _yalc push_.
 
 For a detailed explanation of yalc usage please visit the [project homepage](https://github.com/whitecolor/yalc).
+
+## Common questions
+### After a build configuration has been created, how I can change some parameters without a manual intervention?
+
+Just re run the generator! You will be prompted with the old inputs given, change the one you need.
 
 ## License
 
