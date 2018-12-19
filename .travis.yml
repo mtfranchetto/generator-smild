@@ -1,7 +1,18 @@
 language: node_js
 node_js:
-  - v11
-  - v10
-  - v8
-  - v6
-  - v4
+- v11
+- v10
+- v8
+install:
+- npm ci
+script:
+- npm test
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: mt.franchetto@gmail.com
+  on:
+    repo: mtfranchetto/generator-smild
+    tags: true
+  api_key:
+    secure: KmkaagtSg/TM61oMso2m3Avfdrlg8wAr+C224SeCcbSI6Q2l9HhPCmbsqLT7haMP6keOa5XMCF444OtNUB+j5zFi6Gw/7a834GjeywPnEmQVJjzWGLAAkb4U0JpQa7x89pfFjbqn1AZgidya4URM2AnRChgHAJAGoX0AzJQVIZj0tqXWF0256+VcjpecD5JylIjoMANfBrbzLUhrWbdMSK6nlSFNAH6nBwbPvxTEnfnjCf/9v/2IjTVEhFjckZjCZt3rDvod5W2ZtXy/MxyAAO3sMvm3x0IALR3dwLqsFlbcR9alRUo5rzT/XE9E16AYl/XUZPIsIprtwl+0wm8IZzBEOy6LIsnj1mquFKqDAIYAIEOWI/CVYF+zR48TAX0wvC2qKpoG6P9Vv9c4NOswcoESvVQZtuC50sj69fIsVd2AIxrsaSKEhmLaq1FdZ5voVVAEocmLwimJiZzXc8NMoFeOus+SafF+IIeH8ALdXU4yNHSeI+BW2npGrxOnL5QaA0eRfgLJNZIw9um7i1r024P4RR0TcXEWQM/dH7PtuM/iHAx34FRYu4suZwNuKqX4VCcqxysWWwpzxgmhw0g5BkWviCAFR1wFOwXMhieSpgIAgMirzQ8ledDzMOwTGyFv8/RKfzPId+tyCZnkzLnp9Asf9n5ldWL7fqPVJ9fD7wY=

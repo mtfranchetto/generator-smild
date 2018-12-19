@@ -1,38 +1,22 @@
-"use strict";
 const Generator = require("yeoman-generator");
-const chalk = require("chalk");
-const yosay = require("yosay");
 
 module.exports = class extends Generator {
-  prompting() {
-    // Have Yeoman greet the user.
-    this.log(
-      yosay(`Welcome to the stellar ${chalk.red("generator-smild")} generator!`)
-    );
-
-    const prompts = [
+  async prompting() {
+    this.answers = await this.prompt([
       {
-        type: "confirm",
-        name: "someAnswer",
-        message: "Would you like to enable this option?",
-        default: true
+        type: "list",
+        name: "projectType",
+        message: "Choose how this project will be built",
+        choices: ["bundle", "lib", "server"],
+        default: "bundle",
+        store: true
       }
-    ];
-
-    return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    });
+    ]);
   }
 
-  writing() {
-    this.fs.copy(
-      this.templatePath("dummyfile.txt"),
-      this.destinationPath("dummyfile.txt")
-    );
-  }
-
-  install() {
-    this.installDependencies();
+  runGenerators() {
+    this.composeWith(require.resolve("../common"));
+    this.composeWith(require.resolve(`../${this.answers.projectType}`));
+    this.composeWith(require.resolve("../test"));
   }
 };
