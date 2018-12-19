@@ -116,7 +116,7 @@ Alias for _yalc push_.
 For a detailed explanation of yalc usage please visit the [project homepage](https://github.com/whitecolor/yalc).
 
 ## Common questions
-### After a build configuration has been created, how I can change some parameters without a manual intervention?
+### After a build configuration has been created, how can I change some parameters without a manual intervention?
 
 Just re run the generator! You will be prompted with the old inputs given, change the one you need.
 
