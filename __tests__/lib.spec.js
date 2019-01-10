@@ -26,7 +26,7 @@ describe("Given a lib generator", () => {
     });
   });
 
-  it("should config typescript for the right sources", () => {
+  it("should configure typescript for the right sources", () => {
     assert.jsonFileContent("tsconfig.json", {
       "compilerOptions": {
         "module": "commonjs",
