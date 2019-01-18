@@ -8,9 +8,6 @@
     "email": "mt.franchetto@gmail.com",
     "url": "https://medium.com/@mtfranchetto"
   },
-  "files": [
-    "generators"
-  ],
   "main": "generators/index.js",
   "keywords": [
     "javascript",
