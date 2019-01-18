@@ -1,6 +1,6 @@
 {
   "name": "generator-smild",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An opinionated generator to build JavaScript projects",
   "homepage": "https://github.com/mtfranchetto/generator-smild",
   "author": {
@@ -8,9 +8,6 @@
     "email": "mt.franchetto@gmail.com",
     "url": "https://medium.com/@mtfranchetto"
   },
-  "files": [
-    "generators"
-  ],
   "main": "generators/index.js",
   "keywords": [
     "javascript",
